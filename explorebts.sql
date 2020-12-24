@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 23, 2020 at 06:37 AM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.2.34
+-- Generation Time: Dec 24, 2020 at 02:02 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -61,6 +61,14 @@ CREATE TABLE `products` (
   `vendor_id` int(11) NOT NULL,
   `product_desc` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`product_id`, `product_name`, `product_pict`, `category_code`, `unit_price`, `vendor_id`, `product_desc`) VALUES
+(1, 'Tenda Kapasitas 2-3 Orang Single Layer', 'tent-2-person.jfif', 'CMP', 18000, 2, 'Tenda Rei biru berkapasitas 2 sampai 3 orang. Single layer dengan kualitas premium'),
+(2, 'Tenda Kapasitas 2-3 Orang Double Layer', 'tent-2-person-double-layer.jfif', 'CMP', 23000, 2, 'Tenda Rei orange berkapasitas 2 sampai 3 orang. Double layer dengan kualitas premium. Cocok saat udara dingin');
 
 -- --------------------------------------------------------
 
@@ -190,7 +198,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`

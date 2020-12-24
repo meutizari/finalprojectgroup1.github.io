@@ -63,16 +63,8 @@
 
         <img src="assets/logo-bts.png" width="75%">
         <div class="list-group">
-          <a href="#" class="list-group-item">Ticket</a>
-          <div class="list-group-item">
-            <a class="dropdown-toggle" href="" data-toggle="dropdown">Services<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li role="presentation"></li><a href="#" class="list-group-item">Inn</a></li>
-              <li role="presentation"></li><a href="#" class="list-group-item">Jeep</a></li>
-              <li role="presentation"></li><a href="#" class="list-group-item">Travel</a></li>
-              <li role="presentation"></li><a href="#" class="list-group-item">Camp Tools</a></li>
-            </ul>
-          </div>
+          <a href="#" class="list-group-item">My Services</a>
+          <a href="#" class="list-group-item">Ordered Services</a>
         </div>
 
       </div>
@@ -108,38 +100,70 @@
         </div>
 
         <div class="container">
-        <?php if($_SESSION['loggedIn']){ ?>
-            <h1>Welcome, <?php echo $_SESSION['username']; ?> !</h1> <br>
+        <?php 
+        $username = $_SESSION['username'];        
+        if($_SESSION['loggedIn']){ ?>
+            <h1>Welcome, <?php echo $username; ?> !</h1> <br>
             <?php } ?>
-            <h3>Recommended</h3> <br>
+            <h3>Your Services</h3> <br>
         </div>
         
         <div class="row">
-        <?php 
-            $u = 0;
-            while($u < 10){ ?>
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item One</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-              </div>
-              <div class="card-footer">
-                    <a class="text-muted" data-toggle="modal" data-target="#myModal">Order > </a>
+        <?php
+                include "connection.php";
+                $query = "SELECT * FROM products WHERE category_code LIKE '%CMP%'";
+                $result = mysqli_query($connect, $query);
+
+                if(mysqli_num_rows($result) > 0){
+                while($row = mysqli_fetch_assoc($result)){
+            ?>
+            <!-- product card -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <img class="card-img-top" src="uploads/<?php echo $row['product_pict'];?>" alt="">
+                        <div class="card-body">
+                        <h5 class="card-title"><?php echo $row['product_name'];?></h5>
+                        <h5>Rp <?php echo $row['unit_price'];?></h5>
+                        </div>
+                        <div class="card-footer">
+                            <button type="button" class="btn" data-toggle="modal" data-target="#modal<?php echo $row['product_id']; ?>">Order > </button>
+                        </div>
+                    </div>
+                </div>
+          <!-- /.product card -->
+          <!-- modal -->
+            <div id="modal<?php echo $row['product_id'];?>" class="modal fade" role="dialog" >
+              <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    
+                  <!-- Modal Header -->
+                  <div class="modal-header">
+                    <h4 class="modal-title"><?php echo $row['product_name'];?></h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+            
+                  <!-- Modal body -->
+                  <div class="modal-body" style="align-items: center;">
+                    <img class="img-fluid" src="uploads/<?php echo $row['product_pict'];?>" alt="">
+                    <?php echo $row['product_desc']; ?>
+                  </div>
+            
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                  </div>
+          
+                </div>
               </div>
             </div>
-          </div>
-          <?php
-            $u+=1;  
-        }
-        ?>      
-          
-
-        </div>
+          <!-- /.modal -->
+            <?php
+                        }
+                    } else{
+                        echo "0 result";
+                    }
+                ?>
+            </div>
         <!-- /.row -->
 
       </div>
@@ -152,7 +176,7 @@
   <!-- /.container -->
 
   <!-- Footer -->
-  <footer class="py-5 bg-dark">
+  <footer class="py-3 bg-dark">
     <div class="container">
       <p class="m-0 text-center text-white">Copyright &copy;  2020 - Group 1 Web Programming Design TI-2H</p>
     </div>
