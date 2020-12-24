@@ -19,6 +19,30 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
         <link href="css/styleLogin.css" rel="stylesheet" />
+        <style>
+            /* width */
+            ::-webkit-scrollbar {
+              width: 5px;
+              opacity: 75%;
+            }
+            
+            /* Track */
+            ::-webkit-scrollbar-track {
+              background: #f1f1f1fb; 
+              opacity: 100%;
+            }
+             
+            /* Handle */
+            ::-webkit-scrollbar-thumb {
+              background: #888;
+
+            }
+            
+            /* Handle on hover */
+            ::-webkit-scrollbar-thumb:hover {
+              background: #f4623a; 
+            }
+            </style>
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -148,28 +172,29 @@
         <!-- Login page -->
         <div id="id01" class="modal">
   
-            <form class="modal-content animate" action="/action_page.php" method="post">
+            <form class="modal-content animate" action="loginMultiProcess.php" method="post">
               <div class="imgcontainer">
                 <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
                 <img src="assets/logo-bts.png" alt="Avatar" class="avatar">
               </div>
           
               <div class="container">
-                <label for="uname"><b>Username</b></label>
-                <input type="text" placeholder="Enter Username" name="uname" required>
+                <label for="username"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="username" required>
           
-                <label for="psw"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="psw" required>
-                  
+                <label for="password"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="password" id="myInput" required>
+                <input type="checkbox" onclick="myFunction()">Show Password  
                 <button type="submit">Login</button>
                 <label>
                   <input type="checkbox" checked="checked" name="remember"> Remember me
-                </label>
+                </label><br>
+                <span class="sign-up text-muted">Don't have an account?   <a href="#">Sign Up</a></span>
               </div>
           
               <div class="container" style="background-color:#f1f1f1">
                 <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-                <span class="psw">Forgot <a href="#">password?</a></span>
+                <span class="password">Forgot <a href="#">password?</a></span>
               </div>
             </form>
           </div>
@@ -181,6 +206,15 @@
             window.onclick = function(event) {
                 if (event.target == modal) {
                     modal.style.display = "none";
+                }
+            }
+
+            function myFunction() {
+                var x = document.getElementById("myInput");
+                if (x.type === "password") {
+                    x.type = "text";
+                } else {
+                    x.type = "password";
                 }
             }
             </script>

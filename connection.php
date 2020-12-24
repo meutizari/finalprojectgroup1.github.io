@@ -2,7 +2,7 @@
     $namaHost = "localhost";
     $username = "root";
     $password = "";
-    $database = "praktikumdb";
+    $database = "explorebts";
 
     $connect = mysqli_connect($namaHost, $username, $password, $database);
     
