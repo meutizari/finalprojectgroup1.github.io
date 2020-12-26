@@ -113,7 +113,7 @@
                 include "connection.php";                
                 $vendor_id = $_SESSION['user_id'];
 
-                $query = "SELECT * FROM products WHERE vendor_id = $vendor_id;";
+                $query = "SELECT * FROM products WHERE vendor_id = $vendor_id && product_stock > 0;";
                 $result = mysqli_query($connect, $query);
 
                 if(mysqli_num_rows($result) > 0){
