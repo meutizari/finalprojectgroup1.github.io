@@ -36,7 +36,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="homeUsers.html">Home
+            <a class="nav-link" href="homeVendor.php">Home
               <span class="sr-only">(current)</span>
             </a>
           </li>
@@ -102,7 +102,7 @@
         <div class="container">
         <?php 
         $username = $_SESSION['username'];        
-        if($_SESSION['loggedIn']){ ?>
+        if($_SESSION['login']){ ?>
             <h1>Welcome, <?php echo $username; ?> !</h1> <br>
             <?php } ?>
             <h3>Your Services</h3> <br>
@@ -110,8 +110,10 @@
         
         <div class="row">
         <?php
-                include "connection.php";
-                $query = "SELECT * FROM products WHERE category_code LIKE '%CMP%'";
+                include "connection.php";                
+                $vendor_id = $_SESSION['user_id'];
+
+                $query = "SELECT * FROM products WHERE vendor_id = $vendor_id && product_stock > 0;";
                 $result = mysqli_query($connect, $query);
 
                 if(mysqli_num_rows($result) > 0){
