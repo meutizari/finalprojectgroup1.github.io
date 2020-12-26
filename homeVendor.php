@@ -111,9 +111,9 @@
         <div class="row">
         <?php
                 include "connection.php";                
-                $username = $_SESSION['username'];
-                $query = "SELECT p.product_id, p.product_name, p.product_pict, p.unit_price, p.product_desc, v.user_id 
-                          FROM products p INNER JOIN users v ON p.vendor_id = v.user_id WHERE v.username = '$username';";
+                $vendor_id = $_SESSION['user_id'];
+
+                $query = "SELECT * FROM products WHERE vendor_id = $vendor_id;";
                 $result = mysqli_query($connect, $query);
 
                 if(mysqli_num_rows($result) > 0){
