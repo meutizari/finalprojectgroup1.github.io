@@ -36,7 +36,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="homeUsers.html">Home
+            <a class="nav-link" href="homeVendor.php">Home
               <span class="sr-only">(current)</span>
             </a>
           </li>
@@ -110,8 +110,10 @@
         
         <div class="row">
         <?php
-                include "connection.php";
-                $query = "SELECT * FROM products WHERE category_code LIKE '%CMP%'";
+                include "connection.php";                
+                $username = $_SESSION['username'];
+                $query = "SELECT p.product_id, p.product_name, p.product_pict, p.unit_price, p.product_desc, v.user_id 
+                          FROM products p INNER JOIN users v ON p.vendor_id = v.user_id WHERE v.username = '$username';";
                 $result = mysqli_query($connect, $query);
 
                 if(mysqli_num_rows($result) > 0){

@@ -55,7 +55,7 @@
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">Services</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contact</a></li>
-                        <li class="nav-item"><a class="btn btn-light js-scroll-trigger" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Log In</a></li>
+                        <li class="nav-item"><a class="btn btn-light js-scroll-trigger" onclick="document.getElementById('login-modal').style.display='block'" style="width:auto;">Log In</a></li>
                     </ul>
                 </div>
             </div>
@@ -170,11 +170,11 @@
             </div>
         </section>
         <!-- Login page -->
-        <div id="id01" class="modal">
+        <div id="login-modal" class="modal">
   
-            <form class="modal-content animate" action="loginMultiProcess.php" method="post">
+            <form class="modal-content animate" action="loginProcess.php" method="post">
               <div class="imgcontainer">
-                <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+                <span onclick="document.getElementById('login-modal').style.display='none'" class="close" title="Close Modal">&times;</span>
                 <img src="assets/logo-bts.png" alt="Avatar" class="avatar">
               </div>
           
@@ -183,24 +183,21 @@
                 <input type="text" placeholder="Enter Username" name="username" required>
           
                 <label for="password"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="password" id="myInput" required>
-                <input type="checkbox" onclick="myFunction()">Show Password  
-                <button type="submit">Login</button>
-                <label>
-                  <input type="checkbox" checked="checked" name="remember"> Remember me
-                </label><br>
+                <input type="password" placeholder="Enter Password" name="password" id="password" required>
+                <input type="checkbox" onclick="showPassword()">Show Password  
+                <button type="submit">Login</button><br>
                 <span class="sign-up text-muted">Don't have an account?   <a href="#">Sign Up</a></span>
               </div>
           
               <div class="container" style="background-color:#f1f1f1">
-                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                <button type="button" onclick="document.getElementById('login-modal').style.display='none'" class="cancelbtn">Cancel</button>
                 <span class="password">Forgot <a href="#">password?</a></span>
               </div>
             </form>
           </div>
           <script>
             // Get the modal
-            var modal = document.getElementById('id01');
+            var modal = document.getElementById('login-modal');
             
             // When the user clicks anywhere outside of the modal, close it
             window.onclick = function(event) {
@@ -209,8 +206,8 @@
                 }
             }
 
-            function myFunction() {
-                var x = document.getElementById("myInput");
+            function showPassword() {
+                var x = document.getElementById("password");
                 if (x.type === "password") {
                     x.type = "text";
                 } else {
