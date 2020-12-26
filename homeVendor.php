@@ -102,7 +102,7 @@
         <div class="container">
         <?php 
         $username = $_SESSION['username'];        
-        if($_SESSION['loggedIn']){ ?>
+        if($_SESSION['login']){ ?>
             <h1>Welcome, <?php echo $username; ?> !</h1> <br>
             <?php } ?>
             <h3>Your Services</h3> <br>

@@ -108,7 +108,7 @@
         </div>
 
         <div class="container">
-        <?php if($_SESSION['loggedIn']){ ?>
+        <?php if($_SESSION['login']){ ?>
             <h1>Welcome, <?php echo $_SESSION['username']; ?> !</h1> <br>
             <?php } ?>
             <h3>Recommended</h3> <br>

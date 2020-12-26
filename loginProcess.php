@@ -13,8 +13,7 @@
         $_SESSION['username'] = $username;
         $_SESSION['user_id'] = $row['user_id'];
         $_SESSION['role_id'] = $row['role_id'];
-        $_SESSION['status'] = 'login';
-        $_SESSION['loggedIn'] = true;
+        $_SESSION['login'] = true;        
         
         if ($row['role_id']  == 1){            
             header('Location:homeVendor.php');
