@@ -36,42 +36,11 @@
 <body>
 
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="#">Explore BTS</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="homeUsers.html">Home
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Book Ticket</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-              Services
-            </a>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="listJeep.html">Jeep</a>
-                <a class="dropdown-item" href="listTravel.html">Travel</a>
-                <a class="dropdown-item" href="listInn.html">Inn</a>
-                <a class="dropdown-item" href="listCampTools.html">Camping Tools</a>
-            </div>
-        </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Log Out</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <?php
+  include 'components/navbarUser.php';
+  ?>
 
-  <h1>List Inn</h1>
+  <h1>Camping Tools</h1>
   <!-- Page Content -->
   <div class="container">
 
@@ -81,14 +50,14 @@
 
         <img src="assets/logo-bts.png" width="75%">
         <div class="list-group">
-          <a href="#" class="list-group-item">Ticket</a>
+          <a href="myOrder.php" class="list-group-item">My Order</a>
           <div class="list-group-item">
             <a class="dropdown-toggle" href="" data-toggle="dropdown">Services<span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li role="presentation"></li><a href="listInn.html" class="list-group-item">Inn</a></li>
-              <li role="presentation"></li><a href="listJeep.html" class="list-group-item">Jeep</a></li>
-              <li role="presentation"></li><a href="listTravel.html" class="list-group-item">Travel</a></li>
-              <li role="presentation"></li><a href="listCampTools.html" class="list-group-item">Camp Tools</a></li>
+              <li role="presentation"></li><a href="listInn.php" class="list-group-item">Inn</a></li>
+              <li role="presentation"></li><a href="listJeep.php" class="list-group-item">Jeep</a></li>
+              <li role="presentation"></li><a href="listTravel.php" class="list-group-item">Travel</a></li>
+              <li role="presentation"></li><a href="listCampTools.php" class="list-group-item">Camp Tools</a></li>
             </ul>
           </div>
         </div>
@@ -107,45 +76,19 @@
                 while($row = mysqli_fetch_assoc($result)){
             ?>
             <!-- product card -->
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-                <img class="card-img-top" src="uploads/<?php echo $row['product_pict'];?>" alt="">
-                <div class="card-body">
-                  <h5 class="card-title"><?php echo $row['product_name'];?></h5>
-                  <h5>Rp <?php echo $row['unit_price'];?></h5>
-                </div>
-                <div class="card-footer">
-                    <button type="button" class="btn" data-toggle="modal" data-target="#modal<?php echo $row['product_id']; ?>">Order > </button>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                  <img class="card-img-top" src="uploads/product_pict/<?php echo $row['product_pict'];?>" alt="">
+                      <div class="card-body">
+                          <h5 class="card-title"><?php echo $row['product_name'];?></h5>
+                          <h5>Rp <?php echo $row['unit_price'];?></h5>
+                      </div>
+                      <div class="card-footer">                            
+                          <a href="booking.php?product_id=<?php echo $row['product_id'];?>"><button type="button" class="btn btn-primary">Booking!</button></a>
+                      </div>
                 </div>
             </div>
-          </div>
           <!-- /.product card -->
-          <!-- modal -->
-            <div id="modal<?php echo $row['product_id'];?>" class="modal fade" role="dialog" >
-              <div class="modal-dialog modal-sm" role="document">
-                <div class="modal-content">
-                    
-                  <!-- Modal Header -->
-                  <div class="modal-header">
-                    <h4 class="modal-title"><?php echo $row['product_name'];?></h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  </div>
-            
-                  <!-- Modal body -->
-                  <div class="modal-body" style="align-items: center;">
-                    <img class="img-fluid" src="uploads/<?php echo $row['product_pict'];?>" alt="">
-                    <?php echo $row['product_desc']; ?>
-                  </div>
-            
-                  <!-- Modal footer -->
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                  </div>
-          
-                </div>
-              </div>
-            </div>
-          <!-- /.modal -->
           <?php
                     }
                 } else{
@@ -166,7 +109,7 @@
   <!-- /.container -->
   
   <!-- Footer -->
-  <footer class="py-3 bg-dark">
+  <footer class="fixed-bottom py-3 bg-dark">
     <div class="container">
       <p class="m-0 text-center text-white">Copyright &copy; 2020 - Group 1 Web Programming Design TI-2H</p>
     </div>

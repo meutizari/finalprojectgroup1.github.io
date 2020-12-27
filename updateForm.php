@@ -43,46 +43,38 @@
     </head>
     <body>
         <!-- navbar -->
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-            <div class="container">
-            <a class="navbar-brand" href="#">Explore BTS</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="homeUser.php">Home
-                    <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="logoutSession.php">Log Out</a>
-                </li>
-                </ul>
-            </div>
-            </div>
-        </nav>
-        <!-- navbar -->
-        <h1>Add Service</h1>
+            <?php
+                include 'components/navbarVendor.php';
+                include "connection.php";
+                $id = $_GET['product_id'];
+                $query = "SELECT * FROM products WHERE product_id = '$id'";
+                $result = mysqli_query($connect, $query);
+            ?>
+        <h1>Update Service</h1>
           <!--form!-->
         <div class="container">
             <br>
-
-        <form action="createProductProcess.php" method="POST" enctype="multipart/form-data">
+        <form action="editProductProcess.php" method="POST" enctype="multipart/form-data">
             <table>
+            <?php
+                while($row = mysqli_fetch_array($result)){
+                $selectedCategories = $row['category_code'];
+                $options = array("CMP", "INN", "JEEP", "TRIP");
+            ?>
+            <tr>
+                <td>
+                    Product ID   
+                </td>
+                <td>
+                    <input type="text" name="product_id" placeholder="Product ID" value="<?php echo $row['product_id']?>">
+                </td>
+            </tr>
             <tr>
                 <td>
                     Product Name    
                 </td>
                 <td>
-                    <input type="text" name="product_name" placeholder="Product Name" >
+                    <input type="text" name="product_name" placeholder="Product Name" value="<?php echo $row['product_name']?>">
                 </td>
             </tr>
             <tr>
@@ -103,7 +95,7 @@
                     Unit Price 
                 </td>
                 <td>
-                    <input type="number" name="unit_price" placeholder="Unit Price" >
+                    <input type="number" name="unit_price" placeholder="Unit Price" value="<?php echo $row['unit_price']?>">
                 </td>
             </tr>
             <tr>
@@ -111,7 +103,7 @@
                     Product Stock 
                 </td>
                 <td>
-                    <input type="number" name="product_stock" placeholder="Product Stock">
+                    <input type="number" name="product_stock" placeholder="Product Stock" value="<?php echo $row['product_stock']?>">
                 </td>
             </tr>
             <tr>
@@ -119,7 +111,7 @@
                     Product Description 
                 </td>
                 <td>
-                    <input type="textarea" name="product_desc" placeholder="Product Description" >
+                    <input type="textarea" name="product_desc" placeholder="Product Description" value="<?php echo $row['product_desc']?>">
                 </td>
             </tr>
             <tr>
@@ -127,9 +119,12 @@
                     Product Photos 
                 </td>
                 <td>
-                    <input type="file" name="product_pict">
+                    <input type="file" name="product_pict" value="<?php echo $row['product_pict']?>">
                 </td>
             </tr>
+            <?php
+                }
+            ?>
             </table>
             <input type="submit">
         </form>

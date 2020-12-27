@@ -25,48 +25,20 @@
 </head>
 
 <body>
-    <?php session_start(); ?> 
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="#">Explore BTS</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="homeUsers.html">Home
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Profile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About Us</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="logoutSession.php">Log Out</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
+  
+    <?php session_start(); 
+  include 'components/navbarVendor.php';
+  ?> 
   <!-- Page Content -->
   <div class="container">
 
     <div class="row">
 
       <div class="col-lg-3">
-
-        <img src="assets/logo-bts.png" width="75%">
-        <div class="list-group">
-          <a href="#" class="list-group-item">My Services</a>
-          <a href="#" class="list-group-item">Ordered Services</a>
-        </div>
-
+      <?php
+        include 'components/sideMenuVendor.php';
+      ?>
       </div>
       <!-- /.col-lg-3 -->
 
@@ -102,7 +74,7 @@
         <div class="container">
         <?php 
         $username = $_SESSION['username'];        
-        if($_SESSION['loggedIn']){ ?>
+        if($_SESSION['login']){ ?>
             <h1>Welcome, <?php echo $username; ?> !</h1> <br>
             <?php } ?>
             <h3>Your Services</h3> <br>
@@ -111,7 +83,8 @@
         <div class="row">
         <?php
                 include "connection.php";
-                $query = "SELECT * FROM products WHERE category_code LIKE '%CMP%'";
+                $vendor_id = $_SESSION['user_id'];
+                $query = "SELECT * FROM products WHERE vendor_id = $vendor_id";
                 $result = mysqli_query($connect, $query);
 
                 if(mysqli_num_rows($result) > 0){
@@ -120,13 +93,13 @@
             <!-- product card -->
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
-                        <img class="card-img-top" src="uploads/<?php echo $row['product_pict'];?>" alt="">
+                        <img class="card-img-top" src="uploads/product_pict/<?php echo $row['product_pict'];?>" alt="">
                         <div class="card-body">
                         <h5 class="card-title"><?php echo $row['product_name'];?></h5>
                         <h5>Rp <?php echo $row['unit_price'];?></h5>
                         </div>
                         <div class="card-footer">
-                            <button type="button" class="btn" data-toggle="modal" data-target="#modal<?php echo $row['product_id']; ?>">Order > </button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal<?php echo $row['product_id']; ?>">Check > </button>
                         </div>
                     </div>
                 </div>
@@ -150,7 +123,8 @@
             
                   <!-- Modal footer -->
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <a href="updateForm.php?product_id=<?php echo $row['product_id'];?>"><button type="button" class="btn btn-primary" >Update Item</button></a>
+                    <a href="deleteProductProcess.php?product_id=<?php echo $row['product_id'];?>"><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure to delete?')">Delete Item</button></a>
                   </div>
           
                 </div>

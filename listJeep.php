@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>List Inn - Explore BTS</title>
+  <title>List Jeep - Explore BTS</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -69,7 +69,7 @@
         <div class="row">
           <?php
                 include "connection.php";
-                $query = "SELECT * FROM products WHERE category_code LIKE '%INN%'";
+                $query = "SELECT * FROM products WHERE category_code LIKE '%JEEP%'";
                 $result = mysqli_query($connect, $query);
 
                 if(mysqli_num_rows($result) > 0){

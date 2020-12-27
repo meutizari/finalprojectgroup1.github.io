@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>HomeBTS</title>
+  <title>My Order - Explore BTS</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -25,11 +25,10 @@
 </head>
 
 <body>
-    <?php session_start();
-          include 'components/navbarUser.php';
+    <!-- Navigation -->
+    <?php session_start(); 
+    include 'components/navbarUser.php';
     ?> 
-  <!-- Navigation -->
-  
   <!-- Page Content -->
   <div class="container">
 
@@ -77,13 +76,16 @@
         <?php if($_SESSION['login']){ ?>
             <h1>Welcome, <?php echo $_SESSION['username']; ?> !</h1> <br>
             <?php } ?>
-            <h3>Recommended</h3> <br>
+            <h3>Your Order</h3> <br>
         </div>
         
         <div class="row">
             <?php
                 include "connection.php";
-                $query = "SELECT * FROM products";
+                $user_id = $_SESSION['user_id'];
+                $query = "SELECT * FROM bookings INNER JOIN products
+                 ON bookings.product_id = products.product_id
+                  WHERE tourist_id = '$user_id'";
                 $result = mysqli_query($connect, $query);
                 
                 if(mysqli_num_rows($result) > 0){
@@ -99,11 +101,54 @@
                                 <h5>Rp <?php echo $row['unit_price'];?></h5>
                             </div>
                             <div class="card-footer">                            
-                                <a href="booking.php?product_id=<?php echo $row['product_id'];?>"><button type="button" class="btn btn-primary">Booking!</button></a>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal<?php echo $row['product_id']; ?>">See Your Order </button>
                             </div>
                         </div>
                     </div>
-                    <!-- /.product card -->                    
+                    <!-- /.product card -->    
+                    <!-- modal -->
+                        <div id="modal<?php echo $row['product_id'];?>" class="modal fade" role="dialog" >
+                        <div class="modal-dialog modal-sm" role="document">
+                            <div class="modal-content">
+                                
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title"><?php echo $row['product_name'];?></h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                        
+                            <!-- Modal body -->
+                            <div class="modal-body" style="align-items: center;">
+                                <img class="img-fluid" src="uploads/product_pict/<?php echo $row['product_pict'];?>" alt="">
+                                <br>
+                                <?php echo $row['product_desc']; ?>
+                                <br>
+                                <table>
+                                    <tr>
+                                        <td>Order For</td>
+                                        <td>: <?php echo $row['booking_date']; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Quantity</td>
+                                        <td>: <?php echo $row['quantity']; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Length Booking</td>
+                                        <td>: <?php echo $row['booking_days']; ?> days</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                               <a href="updateBookingUser.php?product_id=<?php echo $row['product_id'];?>"><button type="button" class="btn btn-primary" >Update Bookings</button></a>
+                                <a href="deleteBookingProcess.php?booking_id=<?php echo $row['booking_id'];?>"><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure to delete?')">Cancel Order</button></a>
+                            </div>
+                    
+                            </div>
+                        </div>
+                        </div>
+                    <!-- /.modal -->                
             <?php
                     }
                 } else {
